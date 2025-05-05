@@ -1,0 +1,12 @@
+<div class="notifications my-0 mx-auto">
+  <div *ngFor="let notification of notifications" class="notification">
+    <ng-container *ngTemplateOutlet="notificationTpl;context:{notification:notification}"></ng-container>
+  </div>
+</div>
+
+<ng-template #notificationTpl let-notification="notification">
+
+  <div class="message mt-1 text-center fw-medium">{{notification.message}}</div>
+  <div class="progress-bar" [ngStyle]="{'width': notification.progress + '%'}" [ngClass]="className(notification)"></div>
+
+</ng-template>

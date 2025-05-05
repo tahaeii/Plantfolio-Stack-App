@@ -1,0 +1,64 @@
+.notifications {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.notification {
+    background: lightslategray;
+    border-radius: 5px;
+    color: #fff;
+    overflow: hidden;
+    font-family: 'primary-font';
+    margin: 0 auto;
+    position: fixed;
+    right: 44%;
+    top: 3%;
+    min-width: 13rem;
+}
+
+.message {
+    padding: 11px 11px 13px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.info {
+    background-color: #17a2b8;
+}
+
+.success {
+    background-color: #28a745;
+}
+
+.warning {
+    background-color: #ffc107;
+}
+
+.error {
+    background-color: #e03f4f;
+}
+
+
+.progress-bar {
+    height: 5px;
+    transition: width 0.13s;
+    position: relative;
+    /* margin-top: 5px; */
+}
+
+.notification {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.hide {
+    opacity: 0;
+}

@@ -1,0 +1,229 @@
+@import 'src/app/views/panel/components/layout/panel-layout/panel-layout.component.css';
+.custom-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* max-width: 280px; */
+  position: relative;
+}
+
+.custom-input label.input-label {
+  font-size: 0.9rem;
+  color: #757575;
+  font-weight: 500;
+  position: absolute;
+  z-index: 99;
+  top: -10px;
+  right: 12px;
+  background: #fff;
+  padding: 0 6px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.custom-input .input-field {
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  text-align: auto;
+  color: #333;
+  font-family: inherit;
+}
+.custom-input .input-field::placeholder {
+  direction: rtl;
+  text-align: right;
+}
+.custom-input .input-field:hover {
+  border-color: #9e9e9e;
+}
+.custom-input .input-field:focus {
+  outline: none;
+  border-color: #3f51b5;
+  background: #fff;
+}
+
+.custom-input:has(input:focus) label.input-label {
+  color: #3f51b5;
+}
+.custom-input .input-field::placeholder {
+  color: #9e9e9e;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-input .input-field:focus::placeholder {
+  opacity: 0;
+}
+
+.dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-input select.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  color: #333;
+  font-family: inherit;
+  background: #fff;
+}
+.dropdown-container .input-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 14px;
+  color: #757575;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+.custom-input select.inputinput-field:hover {
+  border-color: #9e9e9e;
+}
+.custom-input select.inputinput-field:focus {
+  outline: none;
+  border-color: #3f51b5;
+  background: #fff;
+}
+.custom-input:has(select:focus) label.input-label {
+  color: #3f51b5;
+}
+.custom-input:has(select:focus) .input-icon {
+  color: #3f51b5;
+}
+.custom-input:has(:focus) label.input-label {
+  color: #3f51b5;
+}
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-input .input-field {
+  width: 100%;
+  padding: 12px 14px;
+  padding-left: 36px;
+  font-size: 0.85rem;
+  border: 2px solid #bdbdbd;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  color: #333;
+  font-family: inherit;
+  text-align: auto;
+  background: #fff;
+}
+
+.input-container .input-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 16px;
+  color: #757575;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: #3f51b5;
+  background: #fff;
+}
+
+.input-container input:focus ~ .input-icon {
+  color: #3f51b5;
+}
+
+.custom-input input:-webkit-autofill,
+.custom-input input:-webkit-autofill:hover,
+.custom-input input:-webkit-autofill:focus,
+.custom-input input:-webkit-autofill:active {
+  font-family: primary-font !important;
+  background: #fff !important;
+  border-color: #3f51b5 !important;
+  color: #333 !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+.custom-input input:-webkit-autofill:focus + label.input-label {
+  background: #fff;
+  color: #3f51b5;
+}
+
+.input-container .toggle-password-btn {
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #757575;
+  transition: color 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.input-container .toggle-password-btn i {
+  font-size: 18px;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: #3f51b5;
+  background: #fff;
+}
+
+.input-container input:focus ~ .toggle-password-btn {
+  color: #3f51b5;
+}
+
+.input-container input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.calendar-btn {
+  position: absolute;
+  left: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 0;
+  padding: 3px 0 0px 8px;
+  font-size: 16px;
+  color: #757575;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-btn:hover {
+  color: #3f51b5 !important;
+  background: #ffffff !important;
+}
+
+.calendar-btn:focus {
+  outline: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+}
+
+/* textarea {
+  resize: none;
+  overflow-y: hidden;
+} */

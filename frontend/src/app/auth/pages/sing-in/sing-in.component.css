@@ -1,0 +1,38 @@
+mark {
+  background-color: #3e96e9b2;
+  color: rgb(0, 0, 0);
+  height: fit-content;
+  display: inline-table;
+  font-size: smaller;
+}
+
+.mt-3 span {
+  font-size: small;
+}
+
+.captcha-button {
+  position: absolute;
+  left: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 0;
+  padding: 3px 0 0px 8px;
+  font-size: 16px;
+  color: #757575;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.captcha-button:hover {
+  color: #3f51b5 !important;
+  background: #ffffff !important;
+}
+
+.captcha-button:focus {
+  outline: none;
+}

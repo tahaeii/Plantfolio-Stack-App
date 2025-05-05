@@ -1,0 +1,81 @@
+<div class="custom-input">
+  <label *ngIf="label" [for]="inputId" class="input-label">{{ label }}</label>
+
+  <!-- Normal Input -->
+  <div class="input-container" *ngIf="type === 'text' || type === 'email' || type === 'number'">
+    <input [id]="inputId" type="text" class="input-field" [placeholder]="placeholder" [value]="value"
+      (input)="updateValue($event)" (blur)="onTouched()" [dir]="direction" />
+    <i *ngIf="icon" [class]="'fa ' + icon" class="input-icon"></i>
+  </div>
+
+  <!-- Password Input -->
+  <div class="input-container" *ngIf="type === 'password'">
+    <input [id]="inputId" [type]="showPassword ? 'text' : 'password'" class="input-field" [placeholder]="placeholder"
+      [value]="value" (input)="updateValue($event)" (blur)="onTouched()" [dir]="direction" />
+    <button type="button" class="toggle-password-btn" (click)="toggleShowPassword()">
+      <i [class]="  showPassword ? 'fa-eye-slash' : 'fa-eye'" class="input-icon fa"></i>
+    </button>
+  </div>
+
+  <!-- Dropdown Input -->
+  <div class="input-container" *ngIf="type === 'dropdown'">
+    <select [id]="inputId" class="input-field" [value]="value" (change)="updateValue($event)" (blur)="onTouched()"
+      [dir]="direction">
+      <option value="" disabled selected>{{ placeholder }}</option>
+      <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+    </select>
+    <i *ngIf="icon" [class]="'fa ' + icon" class="input-icon"></i>
+  </div>
+
+  <!-- Datepicker Input -->
+  <div class="input-container" *ngIf="type === 'date'">
+    <input matInput [matDatepicker]="picker" [id]="inputId" class="input-field" [placeholder]="placeholder"
+      (dateChange)="updateValue($event)" (blur)="onTouched()" (click)="picker.open()" [dir]="direction" readonly>
+    <button *ngIf="icon" class="calendar-btn" (click)="picker.open()">
+      <i [class]="'fa ' + icon"></i>
+    </button>
+    <mat-datepicker #picker></mat-datepicker>
+  </div>
+
+  <!-- Textarea Input -->
+  <div class="input-container" *ngIf="type === 'textarea'">
+    <textarea #textareaRef [id]="inputId" class="input-field" [placeholder]="placeholder" [value]="value"
+      (input)="updateValue($event)" (blur)="onTouched()" [style.height]="height !== 'auto' ? height : 'auto'"
+      [style.minHeight]="minHeight" [dir]="direction"></textarea>
+  </div>
+
+
+  <!-- Quill Editor Input -->
+  <div class="input-container" *ngIf="type === 'editor'">
+    <quill-editor [placeholder]="placeholder" [modules]="editorModules" [ngModel]="value"
+      (ngModelChange)="updateValue($event)">
+    </quill-editor>
+  </div>
+
+
+  <!-- Image Cropper Input -->
+  <div class="input-container" *ngIf="type === 'image'">
+    <label *ngIf="label" [for]="inputId" class="input-label">{{ label }}</label>
+
+    <div class="image-container" [ngStyle]="{'background-image': croppedImage ? 'url(' + croppedImage + ')' : 'none'}"
+      (click)="triggerFileInput()">
+      <div class="image-overlay" *ngIf="croppedImage">
+        <span class="upload-text">آپلود عکس جدید</span>
+      </div>
+      <ng-container *ngIf="!croppedImage">
+        <span class="placeholder-text">برای افزودن عکس کلیک کنید</span>
+      </ng-container>
+    </div>
+
+    <input type="file" #fileInput (change)="fileChangeEvent($event)" hidden />
+
+    <app-modal [showModal]="showModal" [modalTitle]="'ویرایش تصویر'" (close)="closeModal()" (cancel)="resetCropper()"
+      (save)="showModal = false">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+        [resizeToWidth]="700" format="png" (imageCropped)="imageCropped($event)">
+      </image-cropper>
+    </app-modal>
+  </div>
+
+
+</div>

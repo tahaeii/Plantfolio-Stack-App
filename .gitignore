@@ -1,0 +1,31 @@
+# ---------------------------
+# General
+node_modules/
+dist/
+tmp/
+out-tsc/
+.env
+.DS_Store
+Thumbs.db
+*.log
+.history/
+
+# Angular (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+
+# Node.js (backend)
+backend/node_modules/
+backend/logs/
+backend/tmp/
+backend/.env
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-workspace
+.c9/
+.project
+.classpath
+.settings/

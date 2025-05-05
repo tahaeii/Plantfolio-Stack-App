@@ -1,0 +1,44 @@
+/* Setting smooth scrolling behavior across the whole page */
+html,
+body {
+  /* height: 100%;                      Ensure the page covers full height */
+  /* overflow-y: scroll;                Always show the vertical scrollbar */
+  scrollbar-width: thin; /* Firefox: thin scrollbar */
+  scrollbar-color: #2a5d32 #f1f1f1; /* Firefox: Deep green with light background */
+  scroll-behavior: smooth; /* Smooth scrolling between anchor links */
+}
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+/* Scrollbar track (background area of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light grey background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Scrollbar thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #2a5d32; /* Deep, earthy green */
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* When the scrollbar thumb is hovered */
+::-webkit-scrollbar-thumb:hover {
+  background: #1e4d28; /* Darker green on hover */
+  transform: scale(1.1); /* Slightly enlarge thumb when hovered */
+}
+
+/* When the scrollbar thumb is active (being clicked) */
+::-webkit-scrollbar-thumb:active {
+  background: #1b3d20; /* Even darker green when active */
+  transform: scale(1); /* Return to normal size */
+}
+
+/* Ensure smooth scroll behavior across all browsers */
+html {
+  scroll-behavior: smooth;
+}

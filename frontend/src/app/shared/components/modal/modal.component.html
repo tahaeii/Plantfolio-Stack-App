@@ -1,0 +1,17 @@
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>{{ modalTitle }}</h4>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelButton()">کنسل</button>
+      <button class="btn btn-primary" (click)="saveButton()">تایید و ذخیره</button>
+    </div>
+  </div>
+</div>

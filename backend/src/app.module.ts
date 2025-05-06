@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
@@ -9,7 +9,13 @@ import { CategoriesModule } from './categories/categories.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/plantfolio'),
+    MongooseModule.forRootAsync({
+      imports:[ConfigModule],
+      inject:[ConfigService],
+      useFactory: (configService:ConfigService)=>({
+        uri:configService.get<string>('MONGO_URI')
+      })
+    }),
     ProductsModule,
     CategoriesModule
   ],

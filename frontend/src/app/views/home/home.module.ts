@@ -10,7 +10,8 @@ import { CategoryAreaComponent } from './components/category-area/category-area.
 import { ProductsAreaComponent } from './components/products-area/products-area.component';
 import { BlogAreaComponent } from './components/blog-area/blog-area.component';
 import { NewsletterAreaComponent } from './components/newsletter-area/newsletter-area.component';
-import { ProductsAllComponent } from './pages/products-all/products-all.component';
+import { ProductsAllComponent } from './pages/products/products-all/products-all.component';
+import { ProductsDetailsComponent } from './pages/products/products-details/products-details.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
 
     // Pages
     ProductsAllComponent,
+    ProductsDetailsComponent,
   ],
   exports: [ // Export Home Components For Perview in CMS
     HomeComponent,

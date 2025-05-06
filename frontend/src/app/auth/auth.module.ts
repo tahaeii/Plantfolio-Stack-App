@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/module/shared.module';
 import { SingInComponent } from './pages/sing-in/sing-in.component';
 import { SingUpComponent } from './pages/sing-up/sing-up.component';
 import { SharedComponentsModule } from '../shared/module/shared.components.module';
+import { LayoutModule } from "../shared/layout/layout.module";
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { SharedComponentsModule } from '../shared/module/shared.components.modul
     SharedComponentsModule,
     AuthRoutingModule,
     RouterModule,
-  ],
+    LayoutModule
+],
   declarations: [
     SingInComponent,
     SingUpComponent,

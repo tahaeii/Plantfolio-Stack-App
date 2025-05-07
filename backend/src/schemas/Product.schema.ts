@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
+import { Category } from './Category.schema';
 
 @Schema()
 export class Product {
@@ -9,10 +10,9 @@ export class Product {
   title: string;
 
   @Prop({
-    type: [Types.ObjectId],
-    ref: 'Category',
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   })
-  categories: Types.ObjectId[];
+  categories: Category[];
 
   @Prop({
     required: [true, 'Description is required!'],
@@ -27,6 +27,8 @@ export class Product {
   @Prop({
     required: [true, 'Rating is required!'],
     default: 0,
+    min:0,
+    max:5
   })
   rating: number;
 

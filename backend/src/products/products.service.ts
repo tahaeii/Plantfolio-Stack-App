@@ -22,9 +22,13 @@ export class ProductsService {
       .sort()
       .limitFields()
       .populate()
-      .paginate();
+      .paginate()
+      .secondPopulate('categories');
     const products = await features.model;
-    const count = await this.productModel.countDocuments(queryString?.filters);
+    console.log(queryString)
+    const {page,sort,limit,fields,populate,...filters}=queryString
+    console.log(filters)
+    const count = await this.productModel.countDocuments(filters);
     return { products, count };
   }
 }

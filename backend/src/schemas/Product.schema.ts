@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Types } from 'mongoose';
 import { Category } from './Category.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Product {
   @Prop({
     required: [true, 'Product title is required!'],

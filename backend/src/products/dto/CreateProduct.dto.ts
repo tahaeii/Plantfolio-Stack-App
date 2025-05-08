@@ -37,4 +37,11 @@ export class CreateProductDto {
   @IsNumber()
   @Min(0, { message: 'Review should be a positive number!' })
   review: number = 0;
+
+  @IsArray()
+  @IsMongoId({
+    each:true,
+    message: 'Each tag ID should be a valid mongoDB objectId!',
+  })
+  tags:string[]
 }

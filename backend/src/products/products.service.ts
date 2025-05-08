@@ -23,7 +23,7 @@ export class ProductsService {
       .limitFields()
       .populate()
       .paginate()
-      .secondPopulate('categories');
+      .secondPopulate('categories tags');
     const products = await features.model;
     console.log(queryString)
     const {page,sort,limit,fields,populate,...filters}=queryString

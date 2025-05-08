@@ -1,18 +1,24 @@
 import {
+  ArrayNotEmpty,
   IsArray,
   IsMongoId,
   IsNotEmpty,
   IsNumber,
+  isString,
   IsString,
   Max,
   Min,
 } from 'class-validator';
 
-
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty({ message: 'Product title is required!' })
   title: string;
+
+  @IsArray()
+  @ArrayNotEmpty({ message: 'Product image is required!' })
+  @IsString({ each: true })
+  images: string[];
 
   @IsArray()
   @IsMongoId({
@@ -40,8 +46,8 @@ export class CreateProductDto {
 
   @IsArray()
   @IsMongoId({
-    each:true,
+    each: true,
     message: 'Each tag ID should be a valid mongoDB objectId!',
   })
-  tags:string[]
+  tags: string[];
 }

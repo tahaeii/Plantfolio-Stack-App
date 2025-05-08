@@ -17,13 +17,17 @@ export class ProductsController {
 
   @Post()
   async createProduct(@Body() createProductDto: CreateProductDto) {
-    const newProduct =
-      await this.productsService.createProduct(createProductDto);
-    return {
-      success: true,
-      data: { newProduct },
-      message: 'Prodcut successfully created!',
-    };
+    try {
+      const newProduct =
+        await this.productsService.createProduct(createProductDto);
+      return {
+        success: true,
+        data: { newProduct },
+        message: 'Prodcut successfully created!',
+      };
+    } catch (error) {
+      throw new HttpException(error?.message, 400);
+    }
   }
 
   @Get()

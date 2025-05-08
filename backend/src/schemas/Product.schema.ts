@@ -7,8 +7,12 @@ import { Tag } from './Tag.schema';
 export class Product {
   @Prop({
     required: [true, 'Product title is required!'],
+    unique: [true, 'Product title should be unique!'],
   })
   title: string;
+
+  @Prop({ required: [true, 'Product image is required!'], default: [] })
+  images: string[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],

@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "681c3e4c08b646dbb15cef8b"
+  },
+  "name": "plant",
+  "link": "https://plantzone.dexignzone.com/xhtml/shop-with-category.html",
+  "createdAt": {
+    "$date": "2025-05-08T05:17:00.705Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-08T05:17:00.705Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "681c3ff66c7caf9af1eceba4"
+  },
+  "name": "accessories",
+  "link": "https://plantzone.dexignzone.com/xhtml/shop-with-category.html",
+  "createdAt": {
+    "$date": "2025-05-08T05:24:06.810Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-08T05:24:06.810Z"
+  },
+  "__v": 0
+}]

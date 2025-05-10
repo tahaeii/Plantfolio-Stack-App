@@ -10,6 +10,7 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { FacebookStrategy } from './strategy/facebook.strategy';
 import { UsersModule } from 'src/users/users.module';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { UsersModule } from 'src/users/users.module';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({}),
   ],
-  providers: [AuthService, UsersService,LocalStrategy,GoogleStrategy,FacebookStrategy],  //later add jwt str
+  providers: [AuthService, UsersService,LocalStrategy,GoogleStrategy,FacebookStrategy,JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

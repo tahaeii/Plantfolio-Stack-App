@@ -16,10 +16,10 @@ export class AuthService {
   ) {}
 
   private generateJwt(user: any) {
-    const payload = { role: user.role, sub: user._id };
+    const payload = {id:user._id, role: user.role, sub: user._id };
     return this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
-      expiresIn: '2d',
+      expiresIn: '1h',
     });
   }
 

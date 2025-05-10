@@ -1,3 +1,4 @@
+import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from './../users/dto/CreateUser.dto';
 import { UsersService } from 'src/users/users.service';
 import { ConflictException, Injectable } from '@nestjs/common';
@@ -41,8 +42,8 @@ export class AuthService {
     return { token };
   }
 
-  async login(createUserDto: CreateUserDto) {
-    const token = this.generateJwt(createUserDto);
+  async login(loginDto: LoginDto) {
+    const token = this.generateJwt(loginDto);
     // const { password, ...userWithoutPass } = createUserDto;
     // return { token, user: userWithoutPass };
     return { token };

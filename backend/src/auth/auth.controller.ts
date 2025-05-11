@@ -12,22 +12,27 @@ import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
-import { Request } from 'express';
+import { RecaptchaGuard } from './guard/recaptcha.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+
   @Post('register')
+  @UseGuards(RecaptchaGuard)
   async register(@Body() createUserDto: CreateUserDto) {
     return await this.authService.register(createUserDto);
   }
 
   // login
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard,RecaptchaGuard)
   @Post()
-  async login(@Body() loginDto: LoginDto) {
-    return await this.authService.login(loginDto);
+  async login(@Body() loginDto: LoginDto, @Req() req) {
+    return {
+      token: await this.authService.login(loginDto),
+      user: { role: req.user.role },
+    };
   }
 
   @UseGuards(JwtAuthGuard)

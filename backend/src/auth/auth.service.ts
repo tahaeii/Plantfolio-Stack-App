@@ -46,7 +46,7 @@ export class AuthService {
     const token = this.generateJwt(loginDto);
     // const { password, ...userWithoutPass } = createUserDto;
     // return { token, user: userWithoutPass };
-    return { token };
+    return token;
   }
 
   async validateUser(email: string, pass: string): Promise<any> {

@@ -21,13 +21,6 @@ export class LoginDto {
   // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
   password: string;
 
-  @ApiProperty({
-    description: 'The role of the user. Default is USER.',
-    example: UserRole.USER,
-    required: false,
-  })
-  @IsEnum(UserRole)
-  role?: UserRole = UserRole.USER;
 
   @ApiProperty({
     description: 'The reCAPTCHA token to validate the user',

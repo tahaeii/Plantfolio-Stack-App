@@ -16,7 +16,8 @@ export class AuthService {
   ) {}
 
   private generateJwt(user: any) {
-    const payload = {id:user._id, role: user.role, sub: user._id };
+    const payload = {role: user.role, sub: user._id };
+    console.log(payload)
     return this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
       expiresIn: '1h',
@@ -31,11 +32,7 @@ export class AuthService {
     }
     const hashedPass = await bcrypt.hash(password, 10);
 
-    const newUser = await this.usersService.createUser({
-      username,
-      email,
-      password: hashedPass,
-    });
+    const newUser = await this.usersService.createUser({...createUserDto,password:hashedPass});
     const token = this.generateJwt(newUser);
     // const { password: pass, ...userWithoutPass } = newUser;
     // return { token, user: userWithoutPass };
@@ -43,7 +40,8 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const token = this.generateJwt(loginDto);
+    const user=await this.usersService.findByEmail(loginDto.email)
+    const token = this.generateJwt(user);
     // const { password, ...userWithoutPass } = createUserDto;
     // return { token, user: userWithoutPass };
     return token;

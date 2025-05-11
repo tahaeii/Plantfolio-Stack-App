@@ -42,7 +42,7 @@ export class AuthController {
     }
   }
 
-  @Post('login')
+  @Post('')
   @UseGuards(LocalAuthGuard, RecaptchaGuard)
   @ApiOperation({ summary: 'User login' })
   @ApiBody({ type: LoginDto })

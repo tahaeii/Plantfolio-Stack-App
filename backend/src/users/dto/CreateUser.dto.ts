@@ -62,8 +62,9 @@ export class CreateUserDto {
     example: UserRole.USER,
     required: false,
   })
+
   @IsEnum(UserRole)
-  role?: UserRole = UserRole.USER;
+  role?: UserRole ;
 
   @ApiProperty({
     description: 'The reCAPTCHA token to validate the user',

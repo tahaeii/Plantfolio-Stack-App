@@ -7,16 +7,16 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'; // Import Swagger decorators
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { RecaptchaGuard } from './guard/recaptcha.guard';
-import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ConflictException } from '@nestjs/common'; // For duplicate user error handling
 
-@ApiTags('Authentication') // Tag to categorize this controller in Swagger UI
+@ApiTags('Authentication') // Swagger tag to group authentication-related endpoints
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -27,29 +27,37 @@ export class AuthController {
   @ApiBody({ type: CreateUserDto })
   @ApiResponse({
     status: 201,
-    description: 'Successfully registered a user.',
+    description: 'User successfully registered and token generated',
   })
-  @ApiResponse({
-    status: 400,
-    description: 'Bad request. Invalid input data.',
-  })
+  @ApiResponse({ status: 400, description: 'Bad request or recaptcha error' })
+  @ApiResponse({ status: 409, description: 'Conflict: User already exists' }) // Add conflict response for duplicate user
   async register(@Body() createUserDto: CreateUserDto) {
-    return await this.authService.register(createUserDto);
+    try {
+      return await this.authService.register(createUserDto);
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw new ConflictException('User already exists with this email!');
+      }
+      throw error; // Rethrow other unexpected errors
+    }
   }
 
-  // login
-  @UseGuards(LocalAuthGuard, RecaptchaGuard)
   @Post('login')
-  @ApiOperation({ summary: 'Login and get a JWT token' })
+  @UseGuards(LocalAuthGuard, RecaptchaGuard)
+  @ApiOperation({ summary: 'User login' })
   @ApiBody({ type: LoginDto })
   @ApiResponse({
     status: 200,
-    description: 'Successfully logged in. Token is returned.',
+    description: 'Login successful and JWT token returned',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid login request format or recaptcha error',
   })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized. Invalid credentials.',
-  })
+    description: 'Unauthorized: Invalid credentials or recaptcha error',
+  }) // Added 401 for invalid credentials
   async login(@Body() loginDto: LoginDto, @Req() req) {
     return {
       token: await this.authService.login(loginDto),
@@ -57,30 +65,23 @@ export class AuthController {
     };
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('verify-token')
-  @ApiOperation({ summary: 'Verify if the token is valid and not expired' })
-  @ApiResponse({
-    status: 200,
-    description: 'Token is valid and not expired.',
-    schema: {
-      example: {
-        valid: true,
-        expired: false,
-        user: { role: 'user' },
-      },
-    },
-  })
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Verify if the JWT token is valid' })
+  @ApiResponse({ status: 200, description: 'Token is valid', type: Object })
   @ApiResponse({
     status: 401,
-    description: 'Unauthorized. Invalid or expired token.',
-  })
-  @ApiBearerAuth() // Shows that this endpoint requires a Bearer token
+    description: 'Unauthorized: Invalid or expired token',
+  }) // Added 401 for invalid token
   verifyToken(@Req() req) {
-    return {
-      valid: true,
-      expired: false,
-      user: { role: req.user.role },
-    };
+    try {
+      return {
+        valid: true,
+        expired: false,
+        user: { role: req.user.role },
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Token verification failed!');
+    }
   }
 }

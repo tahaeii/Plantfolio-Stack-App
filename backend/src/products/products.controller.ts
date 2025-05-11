@@ -9,12 +9,15 @@ import {
   HttpStatus,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/auth/guard/admin.guard';
 
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   async createProduct(@Body() createProductDto: CreateProductDto) {
     try {
@@ -22,7 +25,7 @@ export class ProductsController {
         await this.productsService.createProduct(createProductDto);
       return {
         success: true,
-        data: { newProduct },
+        data: { product:newProduct },
         message: 'Prodcut successfully created!',
       };
     } catch (error) {

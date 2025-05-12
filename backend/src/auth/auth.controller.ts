@@ -59,9 +59,10 @@ export class AuthController {
     description: 'Unauthorized: Invalid credentials or recaptcha error',
   }) // Added 401 for invalid credentials
   async login(@Body() loginDto: LoginDto, @Req() req) {
+    const { role, _id } = req.user;
     return {
       token: await this.authService.login(loginDto),
-      user: { role: req.user.role },
+      user: { role, id: _id },
     };
   }
 

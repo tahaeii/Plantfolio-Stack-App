@@ -17,7 +17,6 @@ export class AuthService {
 
   private generateJwt(user: any) {
     const payload = {role: user.role, sub: user._id };
-    console.log(payload)
     return this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
       expiresIn: '1h',
@@ -25,7 +24,7 @@ export class AuthService {
   }
 
   async register(createUserDto: CreateUserDto): Promise<any> {
-    const { username, email, password } = createUserDto;
+    const { email, password } = createUserDto;
     const existingUser = await this.usersService.findByEmail(email);
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');

@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { Product } from 'src/schemas/Product.schema';
 import { CreateProductDto } from './dto/CreateProduct.dto';
 import ApiFeatures, { QueryString } from 'utils/apiFeatures';
@@ -25,10 +25,21 @@ export class ProductsService {
       .paginate()
       .secondPopulate('categories tags');
     const products = await features.model;
-    console.log(queryString)
-    const {page,sort,limit,fields,populate,...filters}=queryString
-    console.log(filters)
+    console.log(queryString);
+    const { page, sort, limit, fields, populate, ...filters } = queryString;
+    console.log(filters);
     const count = await this.productModel.countDocuments(filters);
     return { products, count };
+  }
+
+  async getProduct(id: string) {
+    if (!isValidObjectId(id)) {
+      throw new BadRequestException('Invalid Object ID');
+    }
+    const product = await this.productModel.findById(id);
+    if (!product) {
+      throw new BadRequestException('Product Not Found!');
+    }
+    return product
   }
 }

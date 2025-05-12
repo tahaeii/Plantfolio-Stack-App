@@ -7,6 +7,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   Query,
   UseGuards,
@@ -43,5 +44,11 @@ export class ProductsController {
       success: true,
       data: { products },
     };
+  }
+
+
+  @Get(':id')
+  async getProduct(@Param('id') id:string){
+    return this.productsService.getProduct(id)
   }
 }

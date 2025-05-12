@@ -52,3 +52,5 @@ export class ProductsController {
     return this.productsService.getProduct(id)
   }
 }
+
+

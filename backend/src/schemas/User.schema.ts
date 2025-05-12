@@ -23,7 +23,7 @@ export class User {
     // match: [
     //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
     //   'Invalid Password!',
-    // ], 
+    // ],
   })
   password: string;
 
@@ -35,6 +35,15 @@ export class User {
 
   @Prop({ enum: UserRole, default: UserRole.USER })
   role: UserRole;
+
+  @Prop({ default: false })
+  isVerified: boolean;
+
+  @Prop()
+  emailVerificationCode?: string;
+
+  @Prop()
+  codeExpiresAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,4 +1,3 @@
-@import 'src/app/views/panel/components/layout/panel-layout/panel-layout.component.css';
 .custom-input {
   display: flex;
   flex-direction: column;
@@ -14,7 +13,7 @@
   position: absolute;
   z-index: 99;
   top: -10px;
-  right: 12px;
+  left: 12px;
   background: #fff;
   padding: 0 6px;
   transition: all 0.3s ease-in-out;
@@ -32,20 +31,20 @@
   font-family: inherit;
 }
 .custom-input .input-field::placeholder {
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
 }
 .custom-input .input-field:hover {
   border-color: #9e9e9e;
 }
 .custom-input .input-field:focus {
   outline: none;
-  border-color: #3f51b5;
+  border-color: green;
   background: #fff;
 }
 
 .custom-input:has(input:focus) label.input-label {
-  color: #3f51b5;
+  color: green;
 }
 .custom-input .input-field::placeholder {
   color: #9e9e9e;
@@ -86,17 +85,17 @@
 }
 .custom-input select.inputinput-field:focus {
   outline: none;
-  border-color: #3f51b5;
+  border-color: green;
   background: #fff;
 }
 .custom-input:has(select:focus) label.input-label {
-  color: #3f51b5;
+  color: green;
 }
 .custom-input:has(select:focus) .input-icon {
-  color: #3f51b5;
+  color: green;
 }
 .custom-input:has(:focus) label.input-label {
-  color: #3f51b5;
+  color: green;
 }
 .input-container {
   position: relative;
@@ -107,7 +106,7 @@
 .custom-input .input-field {
   width: 100%;
   padding: 12px 14px;
-  padding-left: 36px;
+  padding-right: 36px;
   font-size: 0.85rem;
   border: 2px solid #bdbdbd;
   border-radius: 6px;
@@ -120,7 +119,7 @@
 
 .input-container .input-icon {
   position: absolute;
-  left: 12px;
+  right: 12px;
   font-size: 16px;
   color: #757575;
   pointer-events: none;
@@ -129,12 +128,12 @@
 
 .input-container input:focus {
   outline: none;
-  border-color: #3f51b5;
+  border-color: green;
   background: #fff;
 }
 
 .input-container input:focus ~ .input-icon {
-  color: #3f51b5;
+  color: green;
 }
 
 .custom-input input:-webkit-autofill,
@@ -143,14 +142,14 @@
 .custom-input input:-webkit-autofill:active {
   font-family: primary-font !important;
   background: #fff !important;
-  border-color: #3f51b5 !important;
+  border-color: green !important;
   color: #333 !important;
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 .custom-input input:-webkit-autofill:focus + label.input-label {
   background: #fff;
-  color: #3f51b5;
+  color: green;
 }
 
 .input-container .toggle-password-btn {
@@ -177,12 +176,12 @@
 
 .input-container input:focus {
   outline: none;
-  border-color: #3f51b5;
+  border-color: green;
   background: #fff;
 }
 
 .input-container input:focus ~ .toggle-password-btn {
-  color: #3f51b5;
+  color: green;
 }
 
 .input-container input:-webkit-autofill {
@@ -208,7 +207,7 @@
 }
 
 .calendar-btn:hover {
-  color: #3f51b5 !important;
+  color: green !important;
   background: #ffffff !important;
 }
 

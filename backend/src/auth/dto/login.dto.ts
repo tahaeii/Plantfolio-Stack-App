@@ -21,12 +21,20 @@ export class LoginDto {
   // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
   password: string;
 
-
-  @ApiProperty({
-    description: 'The reCAPTCHA token to validate the user',
-    example: '03AGdBq24d53cZ3OrjLQO7Avz8STfiGf8LMFLM8',
-  })
   @IsString()
   @IsNotEmpty()
-  recaptchaToken: string;
+  captchaText:string;
+
+  @IsString()
+  @IsNotEmpty()
+  captchaId:string;
+
+
+  // @ApiProperty({
+  //   description: 'The reCAPTCHA token to validate the user',
+  //   example: '03AGdBq24d53cZ3OrjLQO7Avz8STfiGf8LMFLM8',
+  // })
+  // @IsString()
+  // @IsNotEmpty()
+  // recaptchaToken: string;
 }

@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   Req,
+  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -16,6 +17,7 @@ import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { RecaptchaGuard } from './guard/recaptcha.guard';
 import { ConflictException } from '@nestjs/common'; // For duplicate user error handling
 import { VerifyEmailDto } from './dto/verifyEmail.dto';
+import { Response } from 'express';
 
 @ApiTags('Authentication') // Swagger tag to group authentication-related endpoints
 @Controller('auth')
@@ -23,7 +25,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @UseGuards(RecaptchaGuard)
   async register(@Body() createUserDto: CreateUserDto) {
     try {
       return await this.authService.register(createUserDto);
@@ -36,13 +37,21 @@ export class AuthController {
   }
 
   @Post('verify-email')
-  async verifyEmail(@Body() emailDto:VerifyEmailDto){
-    const {userId,code}=emailDto
-    return this.authService.verifyEmail(userId,code)
+  async verifyEmail(@Body() emailDto: VerifyEmailDto) {
+    const { userId, code } = emailDto;
+    return this.authService.verifyEmail(userId, code);
+  }
+
+  @Get('captcha')
+  getCaptcha(@Res() res: Response) {
+    const { svg, id } = this.authService.generateCaptcha();
+    res.setHeader('Content-Type','image/svg+xml');
+    res.setHeader('captcha-Id',id)
+    res.send(svg)
   }
 
   @Post('')
-  @UseGuards(LocalAuthGuard, RecaptchaGuard)
+  @UseGuards(LocalAuthGuard)
   async login(@Body() loginDto: LoginDto, @Req() req) {
     const { role, _id } = req.user;
     return {

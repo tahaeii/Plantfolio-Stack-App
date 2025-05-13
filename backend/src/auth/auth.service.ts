@@ -48,7 +48,10 @@ export class AuthService {
 
   verifyCaptcha(id: string, userInput: string): boolean {
     const storedText = this.captchaStore.get(id);
-    if (!storedText) return false;
+    if (!storedText) {
+      this.captchaStore.delete(id);
+      return false;
+    }
     const match =
       this.captchaStore.get(id)?.toLowerCase() === userInput.toLowerCase();
     if (match) this.captchaStore.delete(id);
@@ -56,9 +59,9 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const {captchaId,captchaText}=loginDto
-    const captchaValid=this.verifyCaptcha(captchaId,captchaText)
-    if(!captchaValid) throw new BadRequestException('Invalid Captcha!')
+    const { captchaId, captchaText } = loginDto;
+    const captchaValid = this.verifyCaptcha(captchaId, captchaText);
+    if (!captchaValid) throw new BadRequestException('Invalid Captcha!');
 
     const user = await this.usersService.findByEmail(loginDto.email);
     const token = this.generateJwt(user);

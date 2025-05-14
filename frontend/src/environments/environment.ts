@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  apiAddress: "http://87.236.166.196:8001/api/", //FAKE API: https://jsonplaceholder.typicode.com/todos/1
-  imageBaseUrl: "http://87.236.166.182:8000",
+  apiAddress: "http://87.236.166.97:8001/api/", //FAKE API: https://jsonplaceholder.typicode.com/todos/1
+  imageBaseUrl: "http://87.236.166.97:8000",
+  captchaUrl: "http://87.236.166.97",
   addSpace: false,
   defaultPaginationNode: "",
   mobileResponsive: true,

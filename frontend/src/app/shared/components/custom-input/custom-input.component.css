@@ -154,7 +154,7 @@
 
 .input-container .toggle-password-btn {
   position: absolute;
-  left: -2px;
+  right: -2px;
   top: 50%;
   transform: translateY(-50%);
   background: none;

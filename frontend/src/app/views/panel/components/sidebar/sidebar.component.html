@@ -1,0 +1,83 @@
+<!-- Display content based on form status -->
+<mat-sidenav-container>
+
+    <mat-sidenav #drawer [mode]="sidenavMode" [opened]="sidenavOpened" class="mat-elevation-z8 custom-sidenav border-0"
+        position="start">
+
+        <div class="d-flex justify-content-between mx-2 my-4">
+
+            <div class="sidenav-info d-flex">
+                <div class="sidenav-info-avatar">
+                    <img class="rounded" src="assets/images/team/pic2.jpg" width="55">
+                </div>
+                <div class="sidenav-info-info text-start ms-2">
+                    <h4 class="name mb-0">Taha Aref</h4>
+                    <p class="designation opacity-75">Developer</p>
+                </div>
+            </div>
+
+            <button class="position-relative border-0 bg-transparent">
+                <i class="fa-thin fa-laptop-arrow-down fa-xl"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+            </button>
+
+        </div>
+
+        <form class="form border rounded mb-4">
+            <button>
+                <i class="fa-light fa-magnifying-glass"></i>
+            </button>
+            <input class="input" placeholder="Type your text" type="text">
+            <button class="reset" type="reset">
+                <i class="fa-regular fa-xmark"></i>
+            </button>
+        </form>
+
+        <!-- <mat-divider></mat-divider> -->
+
+        <div class="sidenav-items d-flex flex-column gap-2">
+
+            <div class="sidenav-items-item" *ngFor="let tab of mainTabs.slice(0,3)">
+                <button mat-button class="menu-button w-100 py-4" routerLink="#">
+                    <i [class]="tab.icon + ' fa-light opacity-75 mx-2'"></i> {{ tab.label }}
+                </button>
+            </div>
+
+            <mat-accordion [multi]="false">
+
+                <!-- Side menu for Super User -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="fa-light fa-fingerprint opacity-75 mx-2"></i>
+                            <span class="ms-1">Personal</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <button mat-button class="menu-button w-100 py-4" *ngFor="let tab of personalTabs">
+                        <i [class]="tab.icon + ' fa-light mx-2'"></i> {{ tab.label }}
+                    </button>
+                </mat-expansion-panel>
+
+
+            </mat-accordion>
+
+            <div class="sidenav-items-item" *ngFor="let tab of mainTabs.slice(3)">
+                <button mat-button class="menu-button w-100 py-4">
+                    <i [class]="tab.icon + ' fa-light opacity-75 mx-2'"></i> {{ tab.label }}
+                </button>
+            </div>
+
+            <div class="position-absolute bottom-0 start-0 w-100 text-center">
+                <hr class="text-secondary w-75 mx-auto">
+                <p class="opacity-75 m-4">&#169; Plantfolio Project</p>
+            </div>
+
+        </div>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

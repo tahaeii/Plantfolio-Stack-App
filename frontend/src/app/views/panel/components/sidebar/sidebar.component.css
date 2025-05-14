@@ -1,0 +1,395 @@
+/* -------------------- Layout & Container Styles -------------------- */
+.mat-sidenav-container {
+  /* height: calc(100vh - 65px); */
+  height: 100vh;
+}
+
+::ng-deep mat-sidenav-container {
+  height: 100vh;
+}
+
+.mat-sidenav {
+  background: linear-gradient(145deg, #f6f9f4, #ffffff);
+  color: #4a4a4a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 0 20px 20px 0;
+  padding: 16px;
+}
+
+::ng-deep mat-sidenav {
+  top: 0;
+  position: fixed;
+}
+
+/* -------------------- Sidebar Responsive -------------------- */
+@media (max-width: 800px) {
+  ::ng-deep mat-sidenav {
+    visibility: hidden;
+    z-index: -1;
+  }
+
+  ::ng-deep mat-sidenav.opened {
+    visibility: visible;
+    /* right: 0; */
+    z-index: 1000;
+  }
+
+  ::ng-deep mat-sidenav-content {
+    margin-left: 0;
+  }
+}
+
+/* -------------------- Menu Button -------------------- */
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 15px;
+  height: 2.5rem;
+  font-weight: 400;
+}
+
+.menu-button mat-icon {
+  margin-right: 8px;
+}
+
+.menu-button span {
+  letter-spacing: 0;
+}
+
+/* -------------------- Expansion Panel Customizations -------------------- */
+:host ::ng-deep .mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  font-size: 16px;
+  margin: 0 !important;
+}
+
+:host ::ng-deep .mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-spacing {
+  margin: 0 !important;
+}
+
+:host ::ng-deep .mat-expansion-panel {
+  background: inherit !important;
+}
+
+:host ::ng-deep .mat-expansion-indicator::after {
+  border-color: #898989 !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-header {
+  padding: 10px !important;
+  font-weight: 400;
+  height: inherit;
+}
+
+/* -------------------- Divider -------------------- */
+.mat-divider {
+  margin-top: 16px;
+  margin-bottom: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* -------------------- Avatar, Name & Designation -------------------- */
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin: 30px auto 10px;
+}
+
+.name {
+  margin-top: 8px;
+}
+
+.designation {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: #000;
+}
+
+/* -------------------- Floating Button -------------------- */
+.floating-button {
+  position: sticky;
+  right: 1%;
+  top: 1%;
+  z-index: 2;
+  float: right;
+}
+
+/* -------------------- Tab Styles -------------------- */
+mat-tab-group {
+  clear: both;
+}
+
+::ng-deep .mat-mdc-tab-labels {
+  position: relative;
+  border-radius: 10px !important;
+  margin: 0 25px 0 10px;
+}
+
+::ng-deep .mat-mdc-tab-labels {
+  position: relative;
+}
+
+::ng-deep
+  .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs
+  > .mat-mdc-tab-header
+  .mat-mdc-tab {
+  flex-grow: 0 !important;
+  border-radius: 7px 7px 0 0;
+  letter-spacing: 0;
+  font-weight: bold;
+  font-size: 15px;
+  background: white;
+  margin: 0 0 0 3px;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .mdc-tab--active {
+  background-color: aliceblue !important;
+  color: white !important;
+}
+
+/* -------------------- Dialog Styles -------------------- */
+::ng-deep .mat-mdc-dialog-surface {
+  padding: 55px 35px;
+  direction: rtl;
+}
+
+/* -------------------- Title Styles -------------------- */
+h2:not(.xxx) {
+  position: absolute;
+  top: -28px;
+  background: white;
+  padding: 10px;
+}
+
+/* -------------------- iOS Sidebar Styles -------------------- */
+.ios-sidebar.ng-animating {
+  transition: transform 0.3s ease;
+}
+
+.ios-sidebar-header {
+  display: flex;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.ios-sidebar-info h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ios-sidebar-info p {
+  font-size: 12px;
+  color: #777;
+}
+
+.ios-password-details {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+/* -------------------- Password Detail Box -------------------- */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.toggle-arrow {
+  transition: transform 0.3s ease;
+}
+
+.toggle-arrow.collapsed {
+  transform: rotate(180deg);
+}
+
+.details-content.hidden {
+  display: none;
+}
+
+/* -------------------- Input Group -------------------- */
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-group textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* -------------------- Footer in Sidebar -------------------- */
+.ios-sidebar-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 30px 30px;
+  z-index: 1;
+}
+
+/* -------------------- Footer Buttons -------------------- */
+.trash-btn {
+  background: #f8d7da;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  color: #dc3545;
+  cursor: pointer;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #007aff;
+  border: none;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* -------------------- Close Button -------------------- */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #333;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* -------------------- Notification Badge -------------------- */
+.notif-badge {
+  top: 20%;
+  left: 90%;
+}
+
+/* -------------------- Closable Tab -------------------- */
+.closetab {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  left: -8%;
+  top: 1px;
+}
+
+/* -------------------- Stylish Input (Form) -------------------- */
+.form {
+  --timing: 0.3s;
+  /* --width-of-input: 200px; */
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.form:before {
+  content: '';
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.form:focus-within:before {
+  transform: scaleX(1);
+}
+
+/* -------------------- Button Inside Form -------------------- */
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}

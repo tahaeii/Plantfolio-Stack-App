@@ -15,6 +15,8 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { generateCode } from 'utils/generateCode';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import * as svgCaptcha from 'svg-captcha';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +28,47 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
+  private captchaStore = new Map<string, string>();
+
+  generateCaptcha(): { svg: string; id: string } {
+    const captcha = svgCaptcha.create({
+      size: 4,
+      noise: 3,
+      background: '#f0ffee',
+      color: true,
+    });
+
+    const id = randomUUID();
+    this.captchaStore.set(id, captcha.text);
+
+    setTimeout(() => this.captchaStore.delete(id), 15 * 60 * 1000);
+
+    return { svg: captcha.data, id };
+  }
+
+  verifyCaptcha(id: string, userInput: string): boolean {
+    const storedText = this.captchaStore.get(id);
+    if (!storedText) {
+      this.captchaStore.delete(id);
+      return false;
+    }
+    const match =
+      this.captchaStore.get(id)?.toLowerCase() === userInput.toLowerCase();
+    if (match) this.captchaStore.delete(id);
+    return match;
+  }
+
+  async login(loginDto: LoginDto) {
+    const { captchaId, captchaText } = loginDto;
+    const captchaValid = this.verifyCaptcha(captchaId, captchaText);
+    if (!captchaValid) throw new BadRequestException('Invalid Captcha!');
+
+    const user = await this.usersService.findByEmail(loginDto.email);
+    const token = this.generateJwt(user);
+
+    return token;
+  }
+
   generateJwt(user: any) {
     const payload = { role: user.role, sub: user._id };
     return this.jwtService.sign(payload, {
@@ -35,7 +78,7 @@ export class AuthService {
   }
 
   async register(createUserDto: CreateUserDto): Promise<any> {
-    const { password, recaptchaToken, ...others } = createUserDto;
+    const { password, ...others } = createUserDto;
     const existingUser = await this.usersService.findByEmail(
       createUserDto.email,
     );
@@ -87,14 +130,6 @@ export class AuthService {
     return {
       message: 'Email Verified Successfully!',
     };
-  }
-
-  async login(loginDto: LoginDto) {
-    const user = await this.usersService.findByEmail(loginDto.email);
-    const token = this.generateJwt(user);
-    // const { password, ...userWithoutPass } = createUserDto;
-    // return { token, user: userWithoutPass };
-    return token;
   }
 
   async validateUser(email: string, pass: string): Promise<any> {

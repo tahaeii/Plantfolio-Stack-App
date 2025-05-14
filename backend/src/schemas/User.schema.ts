@@ -37,13 +37,13 @@ export class User {
   role: UserRole;
 
   @Prop({ default: false })
-  isVerified: boolean;
+  isVerified: boolean; // For email
 
   @Prop()
   emailVerificationCode?: string;
 
   @Prop()
-  codeExpiresAt: Date;
+  codeExpiresAt: Date; // For email
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

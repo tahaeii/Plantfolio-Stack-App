@@ -9,7 +9,6 @@ import {
 import { UserRole } from 'src/schemas/User.schema';
 
 export class CreateUserDto {
-
   @IsString()
   @IsNotEmpty()
   username: string;
@@ -19,12 +18,10 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-
   @IsString()
   @IsNotEmpty()
   // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
   password: string;
-
 
   @IsString()
   @IsOptional()
@@ -37,10 +34,4 @@ export class CreateUserDto {
   @IsEnum(UserRole)
   @IsOptional()
   role?: UserRole;
-
-
-  @IsString()
-  @IsNotEmpty()
-  recaptchaToken: string;
-
 }

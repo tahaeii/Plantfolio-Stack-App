@@ -26723,14 +26723,14 @@ del {
     -ms-transform: scale(1);
     transform: scale(1); } }
 
-.show-focus-outline .menu-btn:focus,
+/* .show-focus-outline .menu-btn:focus,
 .show-focus-outline .search-link:focus,
 .show-focus-outline .quik-search-remove:focus,
 .show-focus-outline button:focus,
 .show-focus-outline select:focus,
 .show-focus-outline input:focus,
 .show-focus-outline a:focus {
-  outline: 2px solid red !important; }
+  outline: 2px solid red !important; } */
 
 @media (max-width: 991px) {
   .show-focus-outline .nav a > i:focus {
@@ -35993,7 +35993,7 @@ table.wishlist_table {
   flex-direction: column;
   min-height: 880px;
   max-height: 1080px;
-  background: rgba(226, 240, 236, 0.6); }
+  background: #ffff;} 
   @media only screen and (min-width: 300px) and (max-width: 1024px) {
     .end-side-content {
       padding: 40px; } }

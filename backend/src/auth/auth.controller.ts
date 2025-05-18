@@ -43,11 +43,12 @@ export class AuthController {
   }
 
   @Get('captcha')
-  getCaptcha(@Res() res: Response) {
+  getCaptcha() {
     const { svg, id } = this.authService.generateCaptcha();
-    res.setHeader('Content-Type','image/svg+xml');
-    res.setHeader('captcha-Id',id)
-    res.send(svg)
+    return {
+      image:svg,
+      captchaId:id
+    }
   }
 
   @Post('')

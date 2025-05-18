@@ -32,18 +32,18 @@ export class LogMiddleware implements NestMiddleware {
         } catch {
           err = typeof resBody === 'string' ? resBody : 'Unknown error';
         }
-      }
 
-      this.logGateway.emitLog({
-        timestamp: new Date().toISOString(),
-        method,
-        url: originalUrl,
-        ip,
-        role: user.role,
-        status,
-        duration: `${Date.now() - now}`,
-        ...(err && { err }),
-      });
+        this.logGateway.emitLog({
+          timestamp: new Date().toISOString(),
+          method,
+          url: originalUrl,
+          ip,
+          role: user.role,
+          status,
+          duration: `${Date.now() - now}`,
+          ...(err && { err }),
+        });
+      }
     });
     next();
   }

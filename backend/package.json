@@ -29,7 +29,9 @@
     "@nestjs/mongoose": "^11.0.3",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-socket.io": "^11.1.1",
     "@nestjs/swagger": "^11.2.0",
+    "@nestjs/websockets": "^11.1.1",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "class-transformer": "^0.5.1",
@@ -94,6 +96,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "overrides":{
+       "html-minifier": "^4.0.0"
+    }
   }
 }

@@ -7,6 +7,7 @@ import { UsersService } from './users/users.service';
 import { TagsModule } from './tags/tags.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { LogModule } from './logging/log.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { UsersModule } from './users/users.module';
     CategoriesModule,
     TagsModule,
     AuthModule,
-    UsersModule,  
+    UsersModule,
+    LogModule  
   ],
   controllers: [],
   providers: [],

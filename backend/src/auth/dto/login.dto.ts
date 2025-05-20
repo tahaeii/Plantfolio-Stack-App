@@ -23,18 +23,9 @@ export class LoginDto {
 
   @IsString()
   @IsNotEmpty()
-  captchaText:string;
+  captchaText: string;
 
   @IsString()
   @IsNotEmpty()
-  captchaId:string;
-
-
-  // @ApiProperty({
-  //   description: 'The reCAPTCHA token to validate the user',
-  //   example: '03AGdBq24d53cZ3OrjLQO7Avz8STfiGf8LMFLM8',
-  // })
-  // @IsString()
-  // @IsNotEmpty()
-  // recaptchaToken: string;
+  captchaId: string;
 }

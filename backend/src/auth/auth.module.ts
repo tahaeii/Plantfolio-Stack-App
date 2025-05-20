@@ -10,7 +10,6 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { HttpModule } from '@nestjs/axios';
 import { MailerModule } from '@nestjs-modules/mailer';
-import * as nodeMailer from "nodemailer"
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({

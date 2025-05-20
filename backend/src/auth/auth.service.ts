@@ -78,10 +78,8 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto): Promise<any> {
-    const { password,...others } = registerDto;
-    const existingUser = await this.usersService.findByEmail(
-      registerDto.email,
-    );
+    const { password, ...others } = registerDto;
+    const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');
     }
@@ -106,7 +104,7 @@ export class AuthService {
 
     return {
       message: 'Verification code sent to email!',
-      userId: (newUser as UserDocument)._id,
+      userId: newUser._id,
       token,
     };
   }
@@ -123,8 +121,8 @@ export class AuthService {
     }
 
     user.isVerified = true;
-    // user.emailVerificationCode = null;
-    // user.codeExpiresAt = null;
+    user.emailVerificationCode = null;
+    user.codeExpiresAt = null;
     await user.save();
 
     return {
@@ -132,13 +130,14 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(
+    email: string,
+    pass: string,
+  ): Promise<UserDocument | null> {
     const user = await this.usersService.findByEmail(email);
-    if (user && (await bcrypt.compare(pass, user?.password))) {
+    if (user && (await bcrypt.compare(pass, user.password))) {
       return user;
     }
     return null;
   }
-
-
 }

@@ -20,30 +20,21 @@ export class User {
 
   @Prop({
     required: [true, 'Password is required!'],
-    // match: [
-    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-    //   'Invalid Password!',
-    // ],
   })
   password: string;
-
-  @Prop()
-  googleId?: string;
-
-  @Prop()
-  facebookId?: string;
 
   @Prop({ enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
+  // Verufy by emial
   @Prop({ default: false })
-  isVerified: boolean; // For email
+  isVerified: boolean;
 
-  @Prop()
-  emailVerificationCode?: string;
+  @Prop({ type: String, required: false, default: null })
+  emailVerificationCode?: string | null;
 
-  @Prop()
-  codeExpiresAt: Date; // For email
+  @Prop({ type: Date, required: false, default: null })
+  codeExpiresAt?: Date | null;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

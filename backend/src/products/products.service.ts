@@ -25,9 +25,7 @@ export class ProductsService {
       .paginate()
       .secondPopulate('categories tags');
     const products = await features.model;
-    console.log(queryString);
     const { page, sort, limit, fields, populate, ...filters } = queryString;
-    console.log(filters);
     const count = await this.productModel.countDocuments(filters);
     return { products, count };
   }

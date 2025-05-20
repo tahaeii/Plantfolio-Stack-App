@@ -8,13 +8,15 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import {  ApiTags} from '@nestjs/swagger'; // Import Swagger decorators
+import { ApiTags } from '@nestjs/swagger'; // Import Swagger decorators
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { VerifyEmailDto } from './dto/verifyEmail.dto';
 import { RegisterDto } from './dto/register.dto';
+import { GetUser } from 'src/users/decorators/getUser.decorator';
+import { UserRole } from 'src/schemas/User.schema';
 
 @ApiTags('Authentication') // Swagger tag to group authentication-related endpoints
 @Controller('auth')
@@ -43,11 +45,14 @@ export class AuthController {
 
   @Post('')
   @UseGuards(LocalAuthGuard)
-  async login(@Body() loginDto: LoginDto, @Req() req) {
-    const { role, _id } = req.user;
+  async login(
+    @Body() loginDto: LoginDto,
+    @GetUser('sub') id: string,
+    @GetUser('role') role: UserRole,
+  ) {
     return {
       token: await this.authService.login(loginDto),
-      user: { role, id: _id },
+      user: { role, id },
     };
   }
 

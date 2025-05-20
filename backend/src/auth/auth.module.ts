@@ -7,8 +7,6 @@ import { User, UserSchema } from 'src/schemas/User.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { LocalStrategy } from './strategy/local.strategy';
-import { GoogleStrategy } from './strategy/google.strategy';
-import { FacebookStrategy } from './strategy/facebook.strategy';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { HttpModule } from '@nestjs/axios';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -44,8 +42,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     AuthService,
     UsersService,
     LocalStrategy,
-    GoogleStrategy,
-    FacebookStrategy,
     JwtStrategy,
   ],
   controllers: [AuthController],

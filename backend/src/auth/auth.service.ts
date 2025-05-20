@@ -1,5 +1,4 @@
 import { LoginDto } from './dto/login.dto';
-import { CreateUserDto } from './../users/dto/CreateUser.dto';
 import { UsersService } from 'src/users/users.service';
 import {
   BadRequestException,
@@ -17,6 +16,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as svgCaptcha from 'svg-captcha';
 import { randomUUID } from 'crypto';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -77,10 +77,10 @@ export class AuthService {
     });
   }
 
-  async register(createUserDto: CreateUserDto): Promise<any> {
-    const { password, ...others } = createUserDto;
+  async register(registerDto: RegisterDto): Promise<any> {
+    const { password,...others } = registerDto;
     const existingUser = await this.usersService.findByEmail(
-      createUserDto.email,
+      registerDto.email,
     );
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');
@@ -140,27 +140,5 @@ export class AuthService {
     return null;
   }
 
-  async validateGoogleUser(profile: any): Promise<any> {
-    const user = await this.usersService.findByGoogleId(profile?.id);
-    if (user) {
-      return user;
-    }
-    const newUser = await this.usersService.createUser({
-      username: profile.displayName,
-      email: profile.emails[0].value,
-      googleId: profile.id,
-    });
-    return newUser;
-  }
 
-  async validateFacebookUser(profile: any): Promise<any> {
-    const user = await this.usersService.findByFacebookId(profile.id);
-    if (user) return user;
-    const newUser = await this.usersService.createUser({
-      username: profile.displayName,
-      email: profile.emails[0].value,
-      facebookId: profile.id,
-    });
-    return newUser;
-  }
 }

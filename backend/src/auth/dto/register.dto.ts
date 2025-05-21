@@ -20,4 +20,12 @@ export class RegisterDto {
   @IsNotEmpty()
   // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  captchaId:string;
+
+  @IsString()
+  @IsNotEmpty()
+  captchaText:string;
 }

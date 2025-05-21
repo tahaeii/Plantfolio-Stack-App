@@ -38,7 +38,7 @@ export class AuthController {
   getCaptcha() {
     const { svg, id } = this.authService.generateCaptcha();
     return {
-      image: svg,
+      captcha: svg,
       captchaId: id,
     };
   }

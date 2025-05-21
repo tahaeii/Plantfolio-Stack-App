@@ -78,7 +78,10 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto): Promise<any> {
-    const { password, ...others } = registerDto;
+    const { password, captchaId, captchaText, ...others } = registerDto;
+    const captchaValid = this.verifyCaptcha(captchaId, captchaText);
+    if (!captchaValid) throw new BadRequestException('Invalid Captcha!');
+    
     const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');

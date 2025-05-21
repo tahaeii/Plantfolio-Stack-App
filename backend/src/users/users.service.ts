@@ -8,7 +8,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument, UserRole } from 'src/schemas/User.schema';
-import { CreateUserDto } from './dto/CreateUser.dto';
 import * as bcrypt from 'bcryptjs';
 import { UpdateUserDto } from './dto/UpdateUser.dto';
 import { isValidId } from 'utils/IdValidator';
@@ -27,22 +26,6 @@ export class UsersService {
     return this.userModel.findOne({ email });
   }
 
-  async newUserByAdmin(createUserDto: CreateUserDto) {
-    const { password, ...others } = createUserDto;
-    const user = await this.findByEmail(createUserDto.email);
-    if (user) {
-      throw new ConflictException('User already exists!');
-    }
-    const hashedPass = await bcrypt.hash(password, 10);
-    const newUser = await this.createUser({
-      password: hashedPass,
-      ...others,
-    });
-    return {
-      message: 'User Successfully Created!',
-      userId: newUser._id,
-    };
-  }
 
   async updateUser(
     updateUserDto: UpdateUserDto,

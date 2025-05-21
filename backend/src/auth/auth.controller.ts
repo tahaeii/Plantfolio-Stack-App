@@ -58,12 +58,12 @@ export class AuthController {
 
   @Get('verify-token')
   @UseGuards(JwtAuthGuard)
-  verifyToken(@Req() req) {
+  verifyToken(@GetUser('role') role: UserRole) {
     try {
       return {
         valid: true,
         expired: false,
-        user: { role: req.user.role },
+        user: { role },
       };
     } catch (error) {
       throw new UnauthorizedException('Token verification failed!');

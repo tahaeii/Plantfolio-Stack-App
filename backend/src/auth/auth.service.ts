@@ -28,6 +28,7 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
+  // Start Captcha
   private captchaStore = new Map<string, string>();
 
   generateCaptcha(): { svg: string; id: string } {
@@ -57,6 +58,26 @@ export class AuthService {
     if (match) this.captchaStore.delete(id);
     return match;
   }
+  // End Captcha
+
+  generateJwt(user: any) {
+    const payload = { role: user.role, sub: user._id };
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_SECRET'),
+      expiresIn: '1h',
+    });
+  }
+
+  async validateUser(
+    email: string,
+    pass: string,
+  ): Promise<UserDocument | null> {
+    const user = await this.usersService.findByEmail(email);
+    if (user && (await bcrypt.compare(pass, user.password))) {
+      return user;
+    }
+    return null;
+  }
 
   async login(loginDto: LoginDto) {
     const { captchaId, captchaText } = loginDto;
@@ -69,19 +90,11 @@ export class AuthService {
     return token;
   }
 
-  generateJwt(user: any) {
-    const payload = { role: user.role, sub: user._id };
-    return this.jwtService.sign(payload, {
-      secret: this.configService.get('JWT_SECRET'),
-      expiresIn: '1h',
-    });
-  }
-
   async register(registerDto: RegisterDto): Promise<any> {
     const { password, captchaId, captchaText, ...others } = registerDto;
     const captchaValid = this.verifyCaptcha(captchaId, captchaText);
     if (!captchaValid) throw new BadRequestException('Invalid Captcha!');
-    
+
     const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');
@@ -131,16 +144,5 @@ export class AuthService {
     return {
       message: 'Email Verified Successfully!',
     };
-  }
-
-  async validateUser(
-    email: string,
-    pass: string,
-  ): Promise<UserDocument | null> {
-    const user = await this.usersService.findByEmail(email);
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      return user;
-    }
-    return null;
   }
 }

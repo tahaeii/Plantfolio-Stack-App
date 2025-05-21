@@ -1,4 +1,3 @@
-import { CreateUserDto } from 'src/users/dto/CreateUser.dto';
 import {
   Body,
   Controller,
@@ -24,12 +23,6 @@ import { QueryString } from 'utils/apiFeatures';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post('')
-  @HttpCode(201)
-  @UseGuards(AdminGuard)
-  async newUserByAdmin(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.newUserByAdmin(createUserDto);
-  }
 
   @Patch('/:id')
   @UseGuards(JwtAuthGuard)

@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { UserRole } from 'src/schemas/User.schema';
 
 export class RegisterDto {
   @IsString()

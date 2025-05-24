@@ -43,8 +43,8 @@ export class CaptchaService {
     this.authService.getCaptcha().pipe(
       tap((data: any) => {
         this._captcha.next({
-          key: data.captcha_key,
-          imageUrl: `${environment.captchaUrl}${data.image_url}`
+          key: data.captchaId,
+          imageUrl: data.image_url
         });
       })
     ).subscribe();

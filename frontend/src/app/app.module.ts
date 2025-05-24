@@ -40,7 +40,7 @@ import { CoreModule } from './core/module/core.module';
   providers: [
     { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

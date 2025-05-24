@@ -22,18 +22,17 @@
                     <div class="col-12">
                         <div class="m-b25">
                             <app-custom-input label="Email" placeholder="Email Addres" icon="fa-envelope"
-                                formControlName="emila" autocomplete="emila"></app-custom-input>
+                                formControlName="email" autocomplete="email"></app-custom-input>
                             <div class="mt-3">
-                                <span class="fw-medium">emila: </span>
+                                <span class="fw-medium">email: </span>
                                 <mark class="px-1 rounded"
-                                    (click)="copyToClipboard('user@example.com')">user&#64;example.com</mark>
+                                    (click)="copyToClipboard('taha@gmail.com')">taha&#64;gmail.com</mark>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="m-b10">
-                            <label class="label-title">Password</label>
                             <div class="dz-search-password">
                                 <app-custom-input label="Password" type="password" placeholder="Password"
                                     icon="fa-key-skeleton" formControlName="password"
@@ -42,7 +41,23 @@
                             <div class="mt-3">
                                 <span class="fw-medium">password: </span>
                                 <mark class="px-1 rounded"
-                                    (click)="copyToClipboard('SecureP@ss123')">SecureP&#64;ss123</mark>
+                                    (click)="copyToClipboard('taha12345')">taha12345</mark>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex w-100 align-items-center justify-content-around">
+                            <div class="mb-4 w-75 position-relative">
+                                <app-custom-input
+                                    (input)="form.controls['captchaText'].setValue(form.controls['captchaText'].value.toUpperCase(), { emitEvent: false })"
+                                    label="Captcha" placeholder="Captcha" formControlName="captchaText">
+                                </app-custom-input>
+                                <button type="button" class="captcha-button" (click)="captchaService.resetCaptcha()">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                            <div class="mb-4 pe-2" *ngIf="captchaService.captcha$ | async as captcha">
+                                <img [src]="captcha.imageUrl" alt="Captcha" class="rounded-3">
                             </div>
                         </div>
                     </div>
@@ -60,9 +75,9 @@
                         </div>
                     </div>
                     <div>
-                        <a href="registration.html" class="btn btn-secondary btn-lg w-100 btnhover me-2">Sign up</a>
+                        <a class="btn btn-secondary btn-lg w-100 btnhover me-2" (click)="login()">Sign up</a>
                         <p class="m-t20 fw-light">Don’t Have an Account?
-                            <a class="register text-primary font-weight-500" href="registration.html">Sign
+                            <a class="register text-primary font-weight-500">Sign
                                 up For Free</a>
                         </p>
                     </div>

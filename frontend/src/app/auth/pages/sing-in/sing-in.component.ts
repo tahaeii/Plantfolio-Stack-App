@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './sing-in.component.html',
   styleUrls: ['./sing-in.component.css']
 })
-export class SingInComponent { 
+export class SingInComponent {
   /** Form group for login inputs */
   form: FormGroup;
 
@@ -29,13 +29,13 @@ export class SingInComponent {
    * @param fb - FormBuilder to create and manage the form group
    */
   constructor(
-    private authService: AuthService, private fb: FormBuilder, private _notificationSvc: NotificationService, 
+    private authService: AuthService, private fb: FormBuilder, private _notificationSvc: NotificationService,
     public captchaService: CaptchaService
   ) {
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
-      captcha_value: ['', Validators.required]
+      captchaText: ['', Validators.required]
     });
   }
 
@@ -44,33 +44,40 @@ export class SingInComponent {
    * and storing the access and refresh tokens upon successful login.
    * Also handles errors by logging them and refreshing the CAPTCHA.
    */
-  login(): void {
-    if (this.form.invalid) return;
+login(): void {
+  if (this.form.invalid) return;
 
-    const { email, password, captcha_value } = this.form.value;
-    const captchaData = this.captchaService.getCurrentCaptcha();
+  const { email, password, captchaText } = this.form.value;
+  const captchaData = this.captchaService.getCurrentCaptcha();
 
-    if (!captchaData) {
-      this._notificationSvc.error('کد امنیتی یافت نشد. دوباره تلاش کنید.');
-      this.captchaService.loadCaptcha();
-      return;
-    }
-    const captchaUpper = captcha_value.toUpperCase();
-
-    this.authService.login(email, password, captchaUpper, captchaData.key).subscribe(
-      (response) => {
-        localStorage.setItem('access_token', response.access);
-        localStorage.setItem('refresh_token', response.refresh);
-        this.authService.navigateToDashboard();
-      },
-      (error) => {
-        console.error('Login Error:', error);
-        // this.authService.handleLoginError(error);
-        this.captchaService.resetCaptcha();
-        this.form.get('captcha_value')?.setValue('');
-      }
-    );
+  if (!captchaData) {
+    this._notificationSvc.error('کد امنیتی یافت نشد. دوباره تلاش کنید.');
+    this.captchaService.loadCaptcha();
+    return;
   }
+
+  const captchaUpper = captchaText.toUpperCase();
+
+  // ✅ اینجا مقادیر را در کنسول چاپ می‌کنیم
+  console.log('Login Data:', {
+    email,
+    password,
+    captchaText: captchaUpper,
+    captchaId: captchaData.key
+  });
+
+  this.authService.login(email, password, captchaUpper, captchaData.key).subscribe(
+    (response) => {
+      this.authService.navigateToDashboard();
+    },
+    (error) => {
+      console.error('Login Error:', error);
+      this.captchaService.resetCaptcha();
+      this.form.get('captchaText')?.setValue('');
+    }
+  );
+}
+
 
   /**
    * Requests a new CAPTCHA from the authentication service and updates the CAPTCHA key and image URL.
@@ -78,9 +85,9 @@ export class SingInComponent {
    */
   refreshCaptcha(): void {
     this.authService.getCaptcha().subscribe((data: any) => {
-      this.captchaKey = data.captcha_key;
+      this.captchaKey = data.captchaId;
       this.captchaUrl = `${environment.captchaUrl}${data.image_url}`;
-      this.form.get('captcha_value')?.setValue(''); // Clear the CAPTCHA input field
+      this.form.get('captchaText')?.setValue(''); // Clear the CAPTCHA input field
     });
   }
 
@@ -90,11 +97,6 @@ export class SingInComponent {
    * Loads saved email and password (if available) and fetches a new captcha.
    */
   ngOnInit(): void {
-    const savedEmail = localStorage.getItem('email');
-    const savedPassword = localStorage.getItem('password');
-    if (savedEmail && savedPassword) {
-      this.form.patchValue({ email: savedEmail, password: savedPassword });
-    }
     this.captchaService.loadCaptcha();
   }
 

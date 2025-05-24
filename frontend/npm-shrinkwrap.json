@@ -19,7 +19,7 @@
         "@angular/platform-browser": "^16.2.0",
         "@angular/platform-browser-dynamic": "^16.2.0",
         "@angular/router": "^16.2.0",
-        "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+        "@ng-bootstrap/ng-bootstrap": "^13.0.0",
         "@popperjs/core": "^2.11.8",
         "@tinymce/tinymce-angular": "^3.6.1",
         "chart.js": "^3.7.0",
@@ -34,6 +34,7 @@
         "quill": "^2.0.3",
         "quill-image-resize-module": "^3.0.0",
         "rxjs": "~7.8.0",
+        "socket.io-client": "^4.8.1",
         "tslib": "^2.3.0",
         "zone.js": "~0.13.0"
       },
@@ -3309,6 +3310,51 @@
         "ckeditor5": ">= 37.0"
       }
     },
+    "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/debug": {
+      "version": "4.3.7",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.7.tgz",
+      "integrity": "sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==",
+      "license": "MIT",
+      "dependencies": {
+        "ms": "^2.1.3"
+      },
+      "engines": {
+        "node": ">=6.0"
+      },
+      "peerDependenciesMeta": {
+        "supports-color": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/engine.io-client": {
+      "version": "6.5.4",
+      "resolved": "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.5.4.tgz",
+      "integrity": "sha512-GeZeeRjpD2qf49cZQ0Wvh/8NJNfeXkXXcoGh+F77oEAgo9gUHwT1fCRxSNU+YEEaysOJTnsFHmM5oAcPy4ntvQ==",
+      "license": "MIT",
+      "dependencies": {
+        "@socket.io/component-emitter": "~3.1.0",
+        "debug": "~4.3.1",
+        "engine.io-parser": "~5.2.1",
+        "ws": "~8.17.1",
+        "xmlhttprequest-ssl": "~2.0.0"
+      }
+    },
+    "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/socket.io-client": {
+      "version": "4.7.0",
+      "resolved": "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.7.0.tgz",
+      "integrity": "sha512-7Q8CeDrhuZzg4QLXl3tXlk5yb086oxYzehAVZRLiGCzCmtDneiHz1qHyyWcxhTgxXiokVpWQXoG/u60HoXSQew==",
+      "license": "MIT",
+      "dependencies": {
+        "@socket.io/component-emitter": "~3.1.0",
+        "debug": "~4.3.2",
+        "engine.io-client": "~6.5.0",
+        "socket.io-parser": "~4.2.4"
+      },
+      "engines": {
+        "node": ">=10.0.0"
+      }
+    },
     "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/uuid": {
       "version": "9.0.1",
       "resolved": "https://registry.npmjs.org/uuid/-/uuid-9.0.1.tgz",
@@ -3320,6 +3366,35 @@
       "license": "MIT",
       "bin": {
         "uuid": "dist/bin/uuid"
+      }
+    },
+    "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/ws": {
+      "version": "8.17.1",
+      "resolved": "https://registry.npmjs.org/ws/-/ws-8.17.1.tgz",
+      "integrity": "sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==",
+      "license": "MIT",
+      "engines": {
+        "node": ">=10.0.0"
+      },
+      "peerDependencies": {
+        "bufferutil": "^4.0.1",
+        "utf-8-validate": ">=5.0.2"
+      },
+      "peerDependenciesMeta": {
+        "bufferutil": {
+          "optional": true
+        },
+        "utf-8-validate": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/@ckeditor/ckeditor-cloud-services-collaboration/node_modules/xmlhttprequest-ssl": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.0.0.tgz",
+      "integrity": "sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==",
+      "engines": {
+        "node": ">=0.4.0"
       }
     },
     "node_modules/@ckeditor/ckeditor5-adapter-ckfinder": {
@@ -6386,19 +6461,19 @@
       }
     },
     "node_modules/@ng-bootstrap/ng-bootstrap": {
-      "version": "15.1.2",
-      "resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-15.1.2.tgz",
-      "integrity": "sha512-mM2yiGnt9o7KZLIFp8K1vjfmVfu7HR3d8dhH5SszfArbgn9DvvQ4P5D5TDGygzyBSzeyZe18p7I8rX8vgA6DKw==",
+      "version": "13.1.1",
+      "resolved": "https://registry.npmjs.org/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-13.1.1.tgz",
+      "integrity": "sha512-R6qnmFKT2EwwijBHw7rUXqyo5W90OImHOv7BlsxMNnZLIksWIhqwU00k4UBTfRTnd6JsTPuj/co3MaP61ajILA==",
       "license": "MIT",
       "dependencies": {
         "tslib": "^2.3.0"
       },
       "peerDependencies": {
-        "@angular/common": "^16.0.0",
-        "@angular/core": "^16.0.0",
-        "@angular/forms": "^16.0.0",
-        "@angular/localize": "^16.0.0",
-        "@popperjs/core": "^2.11.6",
+        "@angular/common": "^14.1.0",
+        "@angular/core": "^14.1.0",
+        "@angular/forms": "^14.1.0",
+        "@angular/localize": "^14.1.0",
+        "@popperjs/core": "^2.10.2",
         "rxjs": "^6.5.3 || ^7.4.0"
       }
     },
@@ -10533,16 +10608,16 @@
       }
     },
     "node_modules/engine.io-client": {
-      "version": "6.5.4",
-      "resolved": "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.5.4.tgz",
-      "integrity": "sha512-GeZeeRjpD2qf49cZQ0Wvh/8NJNfeXkXXcoGh+F77oEAgo9gUHwT1fCRxSNU+YEEaysOJTnsFHmM5oAcPy4ntvQ==",
+      "version": "6.6.3",
+      "resolved": "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.6.3.tgz",
+      "integrity": "sha512-T0iLjnyNWahNyv/lcjS2y4oE358tVS/SYQNxYXGAJ9/GLgH4VCvOQ/mhTjqU88mLZCQgiG8RIegFHYCdVC+j5w==",
       "license": "MIT",
       "dependencies": {
         "@socket.io/component-emitter": "~3.1.0",
         "debug": "~4.3.1",
         "engine.io-parser": "~5.2.1",
         "ws": "~8.17.1",
-        "xmlhttprequest-ssl": "~2.0.0"
+        "xmlhttprequest-ssl": "~2.1.1"
       }
     },
     "node_modules/engine.io-client/node_modules/debug": {
@@ -16866,14 +16941,14 @@
       }
     },
     "node_modules/socket.io-client": {
-      "version": "4.7.0",
-      "resolved": "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.7.0.tgz",
-      "integrity": "sha512-7Q8CeDrhuZzg4QLXl3tXlk5yb086oxYzehAVZRLiGCzCmtDneiHz1qHyyWcxhTgxXiokVpWQXoG/u60HoXSQew==",
+      "version": "4.8.1",
+      "resolved": "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.8.1.tgz",
+      "integrity": "sha512-hJVXfu3E28NmzGk8o1sHhN3om52tRvwYeidbj7xKy2eIIse5IoKX3USlS6Tqt3BHAtflLIkCQBkzVrEEfWUyYQ==",
       "license": "MIT",
       "dependencies": {
         "@socket.io/component-emitter": "~3.1.0",
         "debug": "~4.3.2",
-        "engine.io-client": "~6.5.0",
+        "engine.io-client": "~6.6.1",
         "socket.io-parser": "~4.2.4"
       },
       "engines": {
@@ -18407,9 +18482,9 @@
       }
     },
     "node_modules/xmlhttprequest-ssl": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.0.0.tgz",
-      "integrity": "sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==",
+      "version": "2.1.2",
+      "resolved": "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.1.2.tgz",
+      "integrity": "sha512-TEU+nJVUUnA4CYJFLvK5X9AOeH4KvDvhIfm0vV1GaQRtchnG0hgK5p8hw/xjv8cunWYCsiPCSDzObPyhEwq3KQ==",
       "engines": {
         "node": ">=0.4.0"
       }

@@ -31,12 +31,5 @@ import { WebsiteLoaderComponent } from '../components/website-loader/website-loa
         SharedModule,
         BreadcrumbComponent, NotificationComponent, WebsiteLoaderComponent, ScreenLoaderComponent, CustomInputComponent, ModalComponent
     ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
-        },
-        { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
-    ]
 })
 export class SharedComponentsModule { }

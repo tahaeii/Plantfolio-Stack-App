@@ -1,5 +1,4 @@
 import { LoginDto } from './dto/login.dto';
-import { CreateUserDto } from './../users/dto/CreateUser.dto';
 import { UsersService } from 'src/users/users.service';
 import {
   BadRequestException,
@@ -17,6 +16,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as svgCaptcha from 'svg-captcha';
 import { randomUUID } from 'crypto';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +28,7 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
+  // Start Captcha
   private captchaStore = new Map<string, string>();
 
   generateCaptcha(): { svg: string; id: string } {
@@ -57,6 +58,26 @@ export class AuthService {
     if (match) this.captchaStore.delete(id);
     return match;
   }
+  // End Captcha
+
+  generateJwt(user: any) {
+    const payload = { role: user.role, sub: user._id };
+    return this.jwtService.sign(payload, {
+      secret: this.configService.get('JWT_SECRET'),
+      expiresIn: '1h',
+    });
+  }
+
+  async validateUser(
+    email: string,
+    pass: string,
+  ): Promise<UserDocument | null> {
+    const user = await this.usersService.findByEmail(email);
+    if (user && (await bcrypt.compare(pass, user.password))) {
+      return user;
+    }
+    return null;
+  }
 
   async login(loginDto: LoginDto) {
     const { captchaId, captchaText } = loginDto;
@@ -69,19 +90,12 @@ export class AuthService {
     return token;
   }
 
-  generateJwt(user: any) {
-    const payload = { role: user.role, sub: user._id };
-    return this.jwtService.sign(payload, {
-      secret: this.configService.get('JWT_SECRET'),
-      expiresIn: '1h',
-    });
-  }
+  async register(registerDto: RegisterDto): Promise<any> {
+    const { password, captchaId, captchaText, ...others } = registerDto;
+    const captchaValid = this.verifyCaptcha(captchaId, captchaText);
+    if (!captchaValid) throw new BadRequestException('Invalid Captcha!');
 
-  async register(createUserDto: CreateUserDto): Promise<any> {
-    const { password, ...others } = createUserDto;
-    const existingUser = await this.usersService.findByEmail(
-      createUserDto.email,
-    );
+    const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
       throw new ConflictException('User already exists with this email!');
     }
@@ -106,7 +120,7 @@ export class AuthService {
 
     return {
       message: 'Verification code sent to email!',
-      userId: (newUser as UserDocument)._id,
+      userId: newUser._id,
       token,
     };
   }
@@ -123,44 +137,12 @@ export class AuthService {
     }
 
     user.isVerified = true;
-    // user.emailVerificationCode = null;
-    // user.codeExpiresAt = null;
+    user.emailVerificationCode = null;
+    user.codeExpiresAt = null;
     await user.save();
 
     return {
       message: 'Email Verified Successfully!',
     };
-  }
-
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findByEmail(email);
-    if (user && (await bcrypt.compare(pass, user?.password))) {
-      return user;
-    }
-    return null;
-  }
-
-  async validateGoogleUser(profile: any): Promise<any> {
-    const user = await this.usersService.findByGoogleId(profile?.id);
-    if (user) {
-      return user;
-    }
-    const newUser = await this.usersService.createUser({
-      username: profile.displayName,
-      email: profile.emails[0].value,
-      googleId: profile.id,
-    });
-    return newUser;
-  }
-
-  async validateFacebookUser(profile: any): Promise<any> {
-    const user = await this.usersService.findByFacebookId(profile.id);
-    if (user) return user;
-    const newUser = await this.usersService.createUser({
-      username: profile.displayName,
-      email: profile.emails[0].value,
-      facebookId: profile.id,
-    });
-    return newUser;
   }
 }

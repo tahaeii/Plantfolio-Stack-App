@@ -17,7 +17,7 @@ export class AdminStrategy extends PassportStrategy(Strategy, 'admin-jwt') {
   async validate(payload: any) {
     const { role } = payload;
     if (role !== 'admin') {
-      throw new UnauthorizedException('You dont have access!');
+      throw new UnauthorizedException('Access Denied!');
     }
     return payload;
   }

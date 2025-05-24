@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEnum,
@@ -8,7 +7,7 @@ import {
 } from 'class-validator';
 import { UserRole } from 'src/schemas/User.schema';
 
-export class CreateUserDto {
+export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   username: string;
@@ -24,14 +23,10 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  @IsOptional()
-  googleId?: string;
+  @IsNotEmpty()
+  captchaId:string;
 
   @IsString()
-  @IsOptional()
-  facebookId?: string;
-
-  @IsEnum(UserRole)
-  @IsOptional()
-  role?: UserRole;
+  @IsNotEmpty()
+  captchaText:string;
 }

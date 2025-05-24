@@ -2,7 +2,7 @@
 // Jalali Calendar
 
 import { DateAdapter } from "@angular/material/core";
-import jalaliMoment from "jalali-moment";
+import * as jalaliMoment from "jalali-moment";
 
 export const PERSIAN_DATE_FORMATS = {
   parse: {

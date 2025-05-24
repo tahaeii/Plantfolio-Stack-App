@@ -13,8 +13,7 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true, // optional
-    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
@@ -22,15 +21,12 @@
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
-      "dom",
-      "dom.iterable"
+      "dom"
     ]
-    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "enableIvy": false,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }

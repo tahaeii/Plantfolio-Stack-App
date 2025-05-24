@@ -1,6 +1,7 @@
 // src/app/services/log-viewer.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { io, Socket } from 'socket.io-client';
 
 
 @Injectable({ providedIn: 'root' })
@@ -8,9 +9,8 @@ export class LogViewerService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io('http://87.236.166.126', {
-      path: '/logs',
-      transports: ['websocket'],
+    this.socket = io('http://87.236.166.126/logs', {
+      transports: ['polling', 'websocket'],
     });
   }
 

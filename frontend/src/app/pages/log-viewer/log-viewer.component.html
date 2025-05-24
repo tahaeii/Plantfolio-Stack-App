@@ -1,3 +1,33 @@
-<div *ngFor="let log of logs">
-  <pre>{{ log | json }}</pre>
+<div class="log-viewer">
+  <div class="log-wrapper">
+    <div class="log-header">
+      <h1><i class="fas fa-server"></i> Real-Time Server Logs</h1>
+      <p>Live updates from your backend server with styled details</p>
+    </div>
+
+    <div class="log-list">
+      <div class="log-item" *ngFor="let log of logs">
+        <div class="log-meta-top">
+          <span class="method-tag" [ngClass]="log.method.toLowerCase()">
+            <i [ngClass]="getMethodIcon(log.method)"></i> {{ log.method }}
+          </span>
+          <span class="status" [ngClass]="getStatusClass(log.status)">
+            {{ log.status }}
+          </span>
+        </div>
+
+        <div class="log-url">
+          <i class="fas fa-link"></i> {{ log.url }}
+        </div>
+
+        <div class="log-info">
+          <span><i class="fas fa-clock"></i> {{ log.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+          <span><i class="fas fa-map-marker-alt"></i> {{ log.ip }}</span>
+          <span><i class="fas fa-user-shield"></i> {{ log.role }}</span>
+          <span><i class="fas fa-stopwatch"></i> {{ log.duration }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

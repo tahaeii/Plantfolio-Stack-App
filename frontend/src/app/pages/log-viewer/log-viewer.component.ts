@@ -17,4 +17,19 @@ export class LogViewerComponent implements OnInit {
       this.logs.unshift(data);
     });
   }
+  getStatusClass(status: number): string {
+    if (status >= 500) return 'error';
+    if (status >= 400) return 'warn';
+    return 'ok';
+  }
+  getMethodIcon(method: string): string {
+    switch (method.toLowerCase()) {
+      case 'get': return 'fas fa-download';
+      case 'post': return 'fas fa-upload';
+      case 'put': return 'fas fa-pencil-alt';
+      case 'delete': return 'fas fa-trash-alt';
+      default: return 'fas fa-question';
+    }
+  }
+
 }

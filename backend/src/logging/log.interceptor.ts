@@ -28,7 +28,7 @@ export class LogInterceptor implements NestInterceptor {
       tap({
         next: () => {
           const status = ctx.getResponse().statusCode;
-          this.logGateway.emitLog({
+          this.logGateway.handleLog({
             timestamp: new Date().toISOString(),
             method,
             url,
@@ -39,7 +39,7 @@ export class LogInterceptor implements NestInterceptor {
           });
         },
         error: (err) => {
-          this.logGateway.emitLog({
+          this.logGateway.handleLog({
             timestamp: new Date().toISOString(),
             method,
             url,

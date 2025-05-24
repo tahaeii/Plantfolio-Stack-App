@@ -33,7 +33,7 @@ export class LogMiddleware implements NestMiddleware {
           err = typeof resBody === 'string' ? resBody : 'Unknown error';
         }
 
-        this.logGateway.emitLog({
+        this.logGateway.handleLog({
           timestamp: new Date().toISOString(),
           method,
           url: originalUrl,

@@ -2,9 +2,10 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Post,
-  Req,
-  Res,
+  Request,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -43,15 +44,19 @@ export class AuthController {
     };
   }
 
-  @Post('')
+  @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
+  @Post('')
   async login(
     @Body() loginDto: LoginDto,
-    @GetUser('sub') id: string,
-    @GetUser('role') role: UserRole,
+    @Request() req
+    // @GetUser('sub') id: string,
+    // @GetUser('role') role: UserRole,
   ) {
+    const token= this.authService.login(loginDto)
+    const {id,role}=req.user
     return {
-      token: await this.authService.login(loginDto),
+      token ,
       user: { role, id },
     };
   }
